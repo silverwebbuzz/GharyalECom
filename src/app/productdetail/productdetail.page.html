@@ -1,0 +1,257 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{productName}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="gotoMycart()">
+        <ion-icon name="cart" mode="md"></ion-icon>
+        <ion-badge class="cart-item-count" color="primary" fill="clear">{{cartItemsCount}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="product-detail-page">
+  <ng-container *ngIf="isLoaded; else elseTemplate">
+    <ion-card class="card-2">
+      <ion-row>
+        <ion-col size="12">
+          <div *ngIf="productData.images.length > 0">
+            <ion-slides pager="true" [options]="SlideOption" #Slides_banner class="slide-preview">
+              <ion-slide *ngFor="let img of productData.images">
+                <img src="{{productImgBaseURL + img.file}}" class="preview-pic" />
+              </ion-slide>
+            </ion-slides>
+          </div>
+          <div *ngIf="productData.images.length == 0">
+              <img src="../../assets/img/no-image-icon-4.png" class="preview-pic" />
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <img src="../assets/img/watch.jpg" style="height: 200px; width:auto; margin: auto;"/> -->
+    </ion-card>
+
+    <ion-card class="card-2">
+      <ion-row class="header">
+        <ion-item class="heading" lines="none">
+          <ion-label class="product-title">
+            {{productData.basic.name}}
+          </ion-label>
+          <ion-button slot="end" fill="clear" (click)="sharePicker()" class="btn-share">
+            <ion-icon name="share" mode="md"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-row>
+      <ion-row class="desc">
+        <ion-text>
+          {{productData.basic.short_description}}
+        </ion-text>
+      </ion-row>
+      <ion-row class="price-detail">
+        <ion-col size="6">
+          <ion-text class="usd-price">
+              {{productData.basic.usd_price}}
+          </ion-text>
+          <ion-text color="primary" class="final-price" *ngIf="!productData.basic.special_price">
+            {{currencySymbol}} {{productData.basic.price | number}}
+          </ion-text>
+          <ion-text color="primary" class="final-price" *ngIf="productData.basic.special_price">
+            {{currencySymbol}} {{productData.basic.special_price | number}}
+          </ion-text><br />
+          <ion-text class="first-price" *ngIf="productData.basic.special_price != null">
+            <del>{{currencySymbol}} {{productData.basic.price | number}}</del>
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="6" style="text-align: right;">
+          <ion-badge class="reward">EARN {{productReward}}</ion-badge>
+          <div class="rating" (click)="getProductRating()">
+          <div class="ratings" title="{{productData.basic.rating}}%">
+            <div class="empty-stars"></div>
+            <div class="full-stars" [ngStyle]="{'width': productData.basic.rating + '%'}">></div>
+          </div>
+          </div>
+          <!-- <div class="rating-summary">
+                <div class="rating-result" title="{{productData.rating}}%">
+                  <span [ngStyle]="{'width': productData.rating + '%'}"><span><span itemprop="ratingValue">{{productData.rating}}</span>% of <span
+                        itemprop="bestRating">100</span></span></span>
+                </div>
+              </div> -->
+        </ion-col>
+      </ion-row>
+      <ion-row class="icon-logo">
+        <ion-col size="8" class="space">
+          <ion-item lines="none">
+            <img src="../assets/icon/bus.png" class="icon-bus" />
+            <ion-label>
+              Free Shipping
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4" class="space">
+          <img *ngIf="productData.watch_delivery == 'Yes'" src="../assets/img/delivery.png" class="logo-24" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <collapsible-list [type]="'accordion'">
+          <collapsible-list-item>
+            <collapsible-header class="waves-effect">
+              <ion-item class="desc-head" lines="none">
+                Description
+                <ion-icon name="arrow-down" slot="end" mode="ios"></ion-icon>
+              </ion-item>
+            </collapsible-header>
+            <collapsible-body [expanded]="true" class="body-spc">
+              <ion-row class="detail-spc">
+                <div class="description-value" [innerHTML]='productData.basic.description'></div>
+              </ion-row>
+            </collapsible-body>
+          </collapsible-list-item>
+          <collapsible-list-item *ngFor="let attr of productData.attributes | keyvalue">
+            <collapsible-header class="waves-effect">
+              <ion-item class="desc-head" lines="none">
+                {{attr.key | titlecase}}
+                <ion-icon name="arrow-down" slot="end" mode="ios"></ion-icon>
+              </ion-item>
+            </collapsible-header>
+            <collapsible-body [expanded]="false" class="body-spc">
+              <ion-row class="detail-spc" *ngFor="let valattr of attr.value">
+                <ion-item lines="full" class="item-list" *ngIf="valattr.attribitue_value">
+                  <ion-col size="6" class="desc">{{valattr.attribitue_label}}</ion-col>
+                  <ion-col size="6" class="desc-detail">{{valattr.attribitue_value}}</ion-col>
+                </ion-item>
+              </ion-row>
+            </collapsible-body>
+          </collapsible-list-item>
+        </collapsible-list>
+      </ion-row>
+    </ion-card>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <ion-card class="card-2">
+      <ion-row>
+        <ion-col size="12">
+          <ion-skeleton-text animated style="width: 100%;height:350px;" class="title"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+      <!-- <img src="../assets/img/watch.jpg" style="height: 200px; width:auto; margin: auto;"/> -->
+    </ion-card>
+    <ion-card class="card-2">
+      <ion-row class="header">
+        <ion-item class="heading" lines="none">
+          <ion-label class="product-title">
+            <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-label>
+          <ion-button slot="end" fill="clear" (click)="sharePicker()" class="btn-share">
+            <ion-icon name="share" mode="md"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-row>
+      <ion-row class="desc">
+        <ion-text style="width:100%;">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+        </ion-text>
+      </ion-row>
+      <ion-row class="price-detail">
+        <ion-col size="4">
+          <ion-text color="primary" class="final-price">
+            <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-text>
+        </ion-col>
+        <ion-col size="3">
+          <ion-text class="first-price">
+            <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-text>
+        </ion-col>
+        <ion-col size="5" class="rating">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="icon-logo">
+        <ion-col size="8" class="space">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="4" class="space">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="desc-head">
+        <ion-col size="11">
+          <ion-label>
+            Description
+          </ion-label>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon name="arrow-down" mode="ios" class="arrow"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="detail-spc">
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+
+    </ion-card>
+
+  </ng-template>
+</ion-content>
+
+<ion-footer class="product-detail-footer">
+  <ng-container *ngIf="isLoaded; else elseFooter">
+    <ion-row style="background: #f1f1f1;">
+      <ion-col size="6" *ngIf="!productData.isWishList" class="btn-fix">
+        <ion-button expand="full" size="large" (click)="addtoFav()" class="wish">
+        <ion-icon name="heart-empty" color="primary"></ion-icon>
+        WISH LIST
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" *ngIf="productData.isWishList" class="btn-fix">
+          <ion-button expand="full" size="large" (click)="removeFav()" class="wish">
+        <ion-icon name="heart" color="primary"></ion-icon>
+        WISH LIST
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" *ngIf="productData.basic.salable" class="btn-buy">
+          <ion-button expand="full" size="large" (click)="addtoCart()" class="buy">
+        <ion-icon name="cart" mode="md"></ion-icon>
+         ADD TO CART
+         </ion-button>
+      </ion-col>
+      <ion-col size="6" *ngIf="!productData.basic.salable" class="btn-buy">
+          <ion-button expand="full" size="large" class="buy" style="--background-activated: #cead65;"> 
+              <ion-icon name="close-circle-outline" mode="md"></ion-icon>
+         OUT OF STOCK
+         </ion-button>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+  <ng-template #elseFooter>
+    <ion-row>
+      <ion-col class="btn-fix">
+        <ion-skeleton-text animated style="width: 100%; height: 2.8em;"></ion-skeleton-text>
+      </ion-col>
+      <!-- <ion-col class="btn-fix">
+        <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-col> -->
+      <ion-col class="btn-buy">
+        <ion-skeleton-text animated style="width: 100%; height: 2.8em;"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+</ion-footer>

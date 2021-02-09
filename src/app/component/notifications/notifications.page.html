@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar class="clr">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Notifications</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+
+  <ion-card>
+      <collapsible-list [type]="'accordion'">
+        <collapsible-list-item *ngFor="let item of notificationArray;let i = index;">
+          <collapsible-header class="waves-effect" (click)="markAsRead(i)">
+            <ion-item class="desc-head" lines="none"  [ngClass]="item.IsRead?'isread':'unread'">
+              {{item.title}}
+              <img src="../../../assets/icon/iconbag.png" slot="start" style="height: 50px; width: 50px;"/>
+              
+              <ion-icon name="arrow-down" slot="end"></ion-icon>
+            </ion-item>
+          </collapsible-header>
+          <collapsible-body [expanded]="false" class="body-spc">
+            <ion-row class="detail-spc">
+              <div class="description-value" [innerHTML]="item.content">
+              </div>
+            </ion-row>
+          </collapsible-body>
+        </collapsible-list-item>
+      </collapsible-list>
+    </ion-card>
+
+</ion-content>

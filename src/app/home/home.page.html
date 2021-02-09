@@ -1,0 +1,240 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <img src="../assets/img/logo.png" class="logo" />
+    <ion-buttons slot="end">
+      <ion-button (click)="openSearch()">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+      <ion-button (click)="openNotification()">
+        <img src="../../assets/icon/dots.png" *ngIf="newNotify" style="height: 10px; width: 10px; position: absolute; top: 3px; right: 6px;"/>
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page">
+  <ng-container *ngIf="isLoaded; else elseSliderTemplate">
+    <ion-slides pager="true" loop="true" [options]="sliderOptions" class="home-slides">
+      <ion-slide>
+        <img src="http://gharyal.com/pub/media/Moving1.png" class="slide-pic">
+      </ion-slide>
+      <ion-slide>
+        <img src="http://gharyal.com/pub/media/Moving2.png" class="slide-pic">
+      </ion-slide>
+      <ion-slide>
+        <img src="http://gharyal.com/pub/media/Moving3.png" class="slide-pic">
+      </ion-slide>
+      <ion-slide>
+        <img src="http://gharyal.com/pub/media/Moving4.png" class="slide-pic">
+      </ion-slide>
+    </ion-slides>
+  </ng-container>
+  <ng-template #elseSliderTemplate>
+    <ion-skeleton-text animated class="home-slides"></ion-skeleton-text>
+  </ng-template>
+  <ion-item lines="none" class="item-spc">
+    <ion-label class="dark">
+      Popular Watches
+    </ion-label>
+    <!-- <ion-button fill="clear" class="more" routerLink="/categoryproduct">
+          MORE
+        </ion-button> -->
+  </ion-item>
+
+
+  <ng-container *ngIf="isLoaded; else elsePopularItems">
+    <ion-grid class="grid">
+      <ion-row style="padding: 5px;">
+        <ion-col size="6" *ngFor="let p of popularProducts" class="grid">
+          <ion-card class="box-card">
+            <ion-row>
+              <ion-col size="7" no-padding>
+                <div class="rating-summary">
+                  <div class="rating-result" title="{{p.rating}}%">
+                    <span [ngStyle]="{'width': p.rating + '%'}"><span><span itemprop="ratingValue">{{p.rating}}</span>%
+                        of
+                        <span itemprop="bestRating">100</span></span></span>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="5" no-padding *ngIf="!p.isWishList">
+                <ion-button fill="clear" class="fav" (click)="addtoFav(p)">
+                  <ion-icon name="heart-empty" class="clr-icon-heart"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="5" no-padding *ngIf="p.isWishList">
+                  <ion-button fill="clear" class="fav" (click)="remvoeFav(p)">
+                    <ion-icon name="heart" class="clr-icon-heart"></ion-icon>
+                  </ion-button>
+                </ion-col>
+            </ion-row>
+            <div class="img-div" (click)="gotoProductPage(p.id, p.name)">
+              <img *ngIf="p.base_img" src="{{productBaseURL + p.base_img}}" class="product-pic" />
+              <img *ngIf="!p.base_img" src="../../assets/img/no-image-icon-4.png" class="product-pic" />
+              <ion-badge *ngIf="p.rewardPoint > 0">EARN {{p.rewardPoint}}</ion-badge>
+            </div>
+            <div class="hr"></div>
+            <div class="product-footer">
+              <ion-item text-wrap lines="none" style="--padding-start: 0px;">
+                <ion-label class="title" (click)="gotoProductPage(p.id, p.name)">{{p.name | titlecase}}</ion-label>
+              </ion-item>
+              <ion-text class="first-price-container">
+                <del *ngIf="p.special_price != null" class="first-price">PKR {{p.price | number}}</del>
+              </ion-text>
+              <ion-text class="usd-price">
+                {{p.usd_price}}
+              </ion-text>
+              <ion-text class="final-price" *ngIf="!p.special_price">
+                PKR {{p.price | number}}
+              </ion-text>
+              <ion-text class="final-price" *ngIf="p.special_price != null">
+                PKR {{p.special_price | number}}
+              </ion-text>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+  <ng-template #elsePopularItems>
+    <ion-grid class="grid">
+      <ion-row style="padding: 5px;">
+        <ion-col size="6" class="grid">
+          <ion-card class="box-card">
+            <ion-row>
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-row>
+            <div class="img-div" style="height: 150px;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+            <div class="hr"></div>
+            <div class="product-footer">
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6" class="grid">
+            <ion-card class="box-card">
+              <ion-row>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-row>
+              <div class="img-div" style="height: 150px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+              <div class="hr"></div>
+              <div class="product-footer">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </ion-card>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+  <ion-item lines="none" class="item-spc">
+    <ion-label class="dark">
+      Top Tranding Watch
+    </ion-label>
+  </ion-item>
+
+<ng-container *ngIf="isLoaded; else elseTreandingItems">
+  <ion-grid class="grid">
+    <ion-row style="padding: 5px;">
+      <ion-col size="6" *ngFor="let p of treandingProducts" class="grid">
+        <ion-card class="box-card">
+          <ion-row>
+            <ion-col size="7" no-padding>
+              <div class="rating-summary">
+                <div class="rating-result" title="{{p.rating}}%">
+                  <span [ngStyle]="{'width': p.rating + '%'}"><span><span itemprop="ratingValue">{{p.rating}}</span>% of
+                      <span itemprop="bestRating">100</span></span></span>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="5" no-padding *ngIf="!p.isWishList">
+              <ion-button fill="clear" class="fav" (click)="addtoFav(p)">
+                <ion-icon name="heart-empty" class="clr-icon-heart"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="5" no-padding *ngIf="p.isWishList">
+                <ion-button fill="clear" class="fav" (click)="remvoeFav(p)">
+                  <ion-icon name="heart" class="clr-icon-heart"></ion-icon>
+                </ion-button>
+              </ion-col>
+          </ion-row>
+          <div class="img-div" (click)="gotoProductPage(p.id, p.name)">
+            <img *ngIf="p.base_img" src="{{productBaseURL + p.base_img}}" class="product-pic" />
+            <img *ngIf="!p.base_img" src="../../assets/img/no-image-icon-4.png" class="product-pic" />
+            <ion-badge *ngIf="p.rewardPoint > 0">EARN {{p.rewardPoint}}</ion-badge>
+          </div>
+          <div class="hr"></div>
+          <div class="product-footer">
+            <ion-item text-wrap lines="none" style="--padding-start: 0px;">
+              <ion-label class="title" (click)="gotoProductPage(p.id, p.name)">{{p.name | titlecase}}</ion-label>
+            </ion-item>
+            <ion-text class="first-price-container">
+              <del *ngIf="p.special_price != null" class="first-price">PKR {{p.price | number}}</del>
+            </ion-text>
+            <ion-text class="usd-price">
+              {{p.usd_price}}
+            </ion-text>
+            <ion-text class="final-price" *ngIf="!p.special_price">
+              PKR {{p.price | number}}
+            </ion-text>
+            <ion-text class="final-price" *ngIf="p.special_price != null">
+              PKR {{p.special_price | number}}
+            </ion-text>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>
+<ng-template #elseTreandingItems>
+    <ion-grid class="grid">
+      <ion-row style="padding: 5px;">
+        <ion-col size="6" class="grid">
+          <ion-card class="box-card">
+            <ion-row>
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-row>
+            <div class="img-div" style="height: 150px;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+            <div class="hr"></div>
+            <div class="product-footer">
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6" class="grid">
+            <ion-card class="box-card">
+              <ion-row>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-row>
+              <div class="img-div" style="height: 150px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+              <div class="hr"></div>
+              <div class="product-footer">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                  <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </ion-card>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+</ion-content>

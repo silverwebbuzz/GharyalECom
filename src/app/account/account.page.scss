@@ -1,0 +1,22 @@
+.account-page{
+    ion-item {
+        display: inline;
+    }
+    ion-card{
+        text-align:center; 
+        box-shadow: 0px 0px 0px 0px;
+    }
+
+    .profile{
+        height: 70px;
+        width: 70px; 
+        margin: auto;  
+        margin-bottom: 10px;
+    }
+
+    .header{
+        color: black; 
+        font-weight: bold; 
+        font-size: 18px;
+    }
+}

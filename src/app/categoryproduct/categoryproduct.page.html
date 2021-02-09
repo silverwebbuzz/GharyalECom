@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar class="clr">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{categoryData.name}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openSearch()">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/wishlist">
+        <ion-icon name="heart-empty"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="gotoMycart()">
+        <ion-icon name="cart" mode="md"></ion-icon>
+        <ion-badge class="cart-item-count" color="primary" fill="clear">{{cartItemsCount}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="category-product-page">
+
+
+  <ion-item lines="none"  class="item-header">
+    <ion-label class="items">{{categoryData.product_count}} Items</ion-label>
+
+    <!-- <ion-button fill="clear" class="btn-sorting" (click)="filter()">
+      <ion-icon name="options" class="icon"></ion-icon>
+      Filter
+    </ion-button> -->
+
+    <ion-button fill="clear" class="btn-sorting" (click)="sort()">
+      <ion-icon name="swap" class="icon"></ion-icon>
+      Sort By
+    </ion-button>
+  </ion-item>
+  <ion-refresher slot="fixed" (ionRefresh)="RefreshProducts($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="crescent"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngIf="isLoaded; else elseTemplate">
+    <ion-grid class="grid">
+      <ion-row style="padding: 5px;">
+        <ion-col size="6" *ngFor="let p of productsData" class="grid">
+          <ion-card class="box-card">
+            <ion-row>
+              <ion-col size="7" no-padding>
+                <div class="rating-summary">
+                  <div class="rating-result" title="{{p.rating}}%">
+                    <span [ngStyle]="{'width': p.rating + '%'}"><span><span itemprop="ratingValue">{{p.rating}}</span>% of <span
+                          itemprop="bestRating">100</span></span></span>
+                  </div>
+                </div>
+              </ion-col>
+              <!-- <ion-button fill="clear" class="rating">
+              <ion-icon name="star" class="clr-icon"></ion-icon>
+            </ion-button> -->
+              <ion-col size="5" no-padding *ngIf="!p.isWishList">
+                <ion-button fill="clear" class="fav" (click)="addtoFav(p)">
+                  <ion-icon name="heart-empty" class="clr-icon-heart"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="5" no-padding *ngIf="p.isWishList">
+                <ion-button fill="clear" class="fav" (click)="removeFav(p)">
+                  <ion-icon name="heart" class="clr-icon-heart"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <div class="img-div" (click)="gotoProductPage(p.id, p.name)">
+              <img *ngIf="p.base_img" src="{{p.base_img}}" class="product-pic" />
+              <img *ngIf="!p.base_img" src="../../assets/img/no-image-icon-4.png" class="product-pic" />
+              <ion-badge *ngIf="p.rewardPoint > 0" class="reward">EARN {{p.rewardPoint}}</ion-badge>
+            </div>
+            <div class="hr"></div>
+            <div class="product-footer" (click)="gotoProductPage(p.id, p.name)">
+                <ion-item text-wrap lines="none" style="--padding-start: 0px;">
+                    <ion-label class="title">{{p.name | titlecase}}
+                    </ion-label>
+                    </ion-item>
+              <ion-text class="cat-title">{{categoryData.name}}</ion-text><br>
+              <div class="price-container">
+              <ion-label  class="first-price-container">
+                <del *ngIf="p.special_price != null" class="first-price">{{currencySymbol}} {{p.price | number}}</del>
+              </ion-label>
+              <ion-text class="usd-price">
+                {{p.usd_price}}
+              </ion-text>
+              <ion-label class="final-price" *ngIf="!p.special_price">
+                {{currencySymbol}} {{p.price | number}}
+              </ion-label>
+              <ion-label class="final-price" *ngIf="p.special_price != null">
+                {{currencySymbol}} {{p.special_price | number}}
+              </ion-label>
+              </div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <ng-template #elseTemplate>
+    <ion-grid class="grid">
+      <ion-row style="padding: 5px;">
+        <ion-col size="6" *ngFor="let item of arrayOne(12)" class="grid">
+          <ion-card class="box-card">
+            <ion-row>
+              <ion-skeleton-text animated style="width: 100%;" class="title"></ion-skeleton-text>
+            </ion-row>
+            <ion-row>
+              <div class="img-div">
+                <ion-skeleton-text animated class="product-pic" style="width: 100%;height: 150px;"></ion-skeleton-text>
+              </div>
+            </ion-row>
+            <div class="hr"></div>
+            <ion-row class="footer-skeleton-row">
+              <div class="product-footer">
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </div>
+            </ion-row>
+
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="noProducts" class="no-data-found">
+    No Products Found.
+  </div>
+</ion-content>

@@ -1,0 +1,49 @@
+.page-orderlist{
+    --background: #f1f1f1;
+}
+.order-card{
+    margin: 5px;
+    border-radius: 0px;
+    background: #fff;
+    box-shadow: 0px 0px 0px 0px;
+}
+.btn-col{
+    padding: 0px;
+}
+.btn-details{
+    margin: 0px;
+    font-weight: bold;
+}
+.status-badge{
+    border-radius: 0px;
+}
+.date-clr{
+    color: #808080;
+}
+.price-clr{
+   color: #000;
+}
+.order_number{
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: #000;
+}
+.order_status{
+    margin-bottom: 5px;
+}
+.order_date{
+    margin-bottom: 5px;
+}
+.order_price{
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.empty-card{
+    box-shadow: 0px 0px 0px 0px; 
+    //margin: 0px;
+    color: #000;
+    height: 100%;
+  }

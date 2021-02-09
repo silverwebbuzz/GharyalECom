@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="close" mode="md"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Add My Review
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="product-review-page">
+
+  <ion-item lines="none" class="product-container">
+    <img src="{{productBaseURL + products.basic.base_img}}" class="rate-pic" />
+    <ion-label>{{products.basic.name}}</ion-label>
+  </ion-item>
+
+  <div class="hr_line"></div>
+  <form class="list-form" [formGroup]="reviewForm" autocomplete="off">
+
+    <ng-container *ngIf="isLoaded; else elseTemplate" >
+      <ion-item lines="none" class="input-container" *ngFor="let option of numberOfRatings">
+        <ion-label>
+          {{option.label}}
+        </ion-label>
+        <rating [formControlName]="option.code" readonly="false" size="default" size="1" (rateChange)="onRateChange($event,option.code)">
+        </rating>
+      </ion-item>
+    </ng-container>
+
+    <ng-template #elseTemplate>
+      <ion-item lines="none" class="input-container">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-item>
+
+      <ion-item lines="none" class="input-container">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-item>
+
+      <ion-item lines="none" class="input-container">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-item>
+
+    </ng-template>
+
+    <ion-item lines="none" class="input-container">
+      <ion-label position="floating" class="input-label">
+        Nickname
+      </ion-label>
+      <ion-input type="text" formControlName="nickname" class="input-box"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="reviewForm.controls.nickname.hasError('required') && reviewForm.controls.nickname.touched">
+      <p>Please Enter a Nickname!</p>
+    </ion-item>
+
+    <ion-item lines="none" class="input-container">
+      <ion-label position="floating" class="input-label">
+        Summary
+      </ion-label>
+      <ion-input type="text" formControlName="summary" class="input-box"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="reviewForm.controls.summary.hasError('required') && reviewForm.controls.summary.touched">
+      <p>Please Enter a Summary!</p>
+    </ion-item>
+
+    <ion-item lines="none" class="input-container">
+      <ion-label position="floating" class="input-label">
+        Your Comment
+      </ion-label>
+      <ion-textarea type="text" formControlName="comment" class="input-box"></ion-textarea>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="reviewForm.controls.comment.hasError('required') && reviewForm.controls.comment.touched">
+      <p>Please Enter a Comment!</p>
+    </ion-item>
+
+  </form>
+  <ion-button expand="full" class="btn" (click)="doSubmit()">
+    SUBMIT REVIEW FOR APPROVAL
+  </ion-button>
+</ion-content>

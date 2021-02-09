@@ -1,0 +1,28 @@
+.dropdown{
+    margin-top: 14px;
+}
+.chk-spc{
+    margin-right: 10px;
+}
+.next{
+    --border-radius: 0px; 
+    color: #fff;
+    margin: 0px;
+}
+.validator-error{
+    margin-left: 10px;
+}
+.address_label{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 0;
+    padding: 5px;
+}
+.checkbox_list{
+    ion-label{
+        font-size: 14px;
+        font-weight: bold;
+        white-space: normal;
+    }
+}

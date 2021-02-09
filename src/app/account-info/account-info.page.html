@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Account Information
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="account-info" [formGroup]="account_form" autocomplete="off">
+    <ion-item lines="none" class="header">
+      Basic Information
+    </ion-item>
+    <ion-item lines="none" class="input-container">
+      <ion-label position="floating" class="input-label">
+        First Name
+      </ion-label>
+      <ion-input type="text" formControlName="firstname" class="input-box"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="account_form.controls.firstname.hasError('required') && account_form.controls.firstname.touched">
+      <p>First Name is required!</p>
+    </ion-item>
+    <ion-item lines="none" class="input-container bottom-spc">
+      <ion-label position="floating" class="input-label">
+        Last Name
+      </ion-label>
+      <ion-input type="text" formControlName="lastname" class="input-box"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="account_form.controls.lastname.hasError('required') && account_form.controls.lastname.touched">
+      <p>Last Name is required!</p>
+    </ion-item>
+
+    <ion-item lines="none" class="header" (ionChange)="onChangeEmail()">
+      <ion-checkbox mode="md"></ion-checkbox>
+      <ion-label>
+        Change Email
+      </ion-label>
+    </ion-item>
+    <div *ngIf="visabilityEmail">
+      <ion-item lines="none" class="input-container bottom-spc">
+        <ion-label position="floating" class="input-label">
+          Email
+        </ion-label>
+        <ion-input type="email" formControlName="email" class="input-box"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="account_form.controls.email.hasError('required') && account_form.controls.email.touched">
+        <p>Email Address is required!</p>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="account_form.controls.email.hasError('pattern') && account_form.controls.email.touched">
+        <p>Please Enter a Valid Email Address!</p>
+      </ion-item>
+    </div>
+
+    <ion-item lines="none" class="header" (ionChange)="onChangePass()">
+      <ion-checkbox mode="md"></ion-checkbox>
+      <ion-label>
+        Change Password
+      </ion-label>
+    </ion-item>
+    <div *ngIf="visabilityPass">
+      <ion-item lines="none" class="input-container">
+        <ion-label position="floating" class="input-label">
+          New Password
+        </ion-label>
+        <ion-input type="password" formControlName="password" class="input-box"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="account_form.controls.password.hasError('minlength') && account_form.controls.password.touched">
+        <p>The password needs at least 8 characters.</p>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="account_form.controls.password.hasError('pattern') && account_form.controls.password.touched">
+        <p>Please Enter One Upper Case and One Lower Case, One Spacial Characters and One Number</p>
+      </ion-item>
+      <ion-item lines="none" class="input-container bottom-spc">
+        <ion-label position="floating" class="input-label">
+          Confirm New Password
+        </ion-label>
+        <ion-input type="password" formControlName="confirmpassword" class="input-box"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="account_form.controls.confirmpassword.hasError('required') && account_form.controls.confirmpassword.touched">
+        <p>Please Enter a Confirm Password!</p>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="account_form.get('confirmpassword').errors && account_form.get('confirmpassword').errors.confirmpassword">
+        <p>Passwords must match!</p>
+      </ion-item>
+
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" size="large" (click)="updateInformation()">
+    SAVE
+  </ion-button>
+</ion-footer>

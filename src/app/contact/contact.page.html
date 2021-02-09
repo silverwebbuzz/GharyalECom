@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Contact Us</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row>
+    <ion-col size="2" class="col-icon">
+      <ion-icon name="pin" size="large" color="primary"></ion-icon>
+    </ion-col>
+    <ion-col size="10">
+      <ion-row>
+        <ion-label class="header">Visit our location</ion-label>
+      </ion-row>
+      <ion-row>
+          <ion-label class="body">
+              8C, Lane 6, Zamzama, Boulevard, Phase V, Karachi, Pakistan
+            </ion-label>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="2" class="col-icon">
+        <ion-icon name="mail" size="large" color="primary"></ion-icon>
+    </ion-col>
+    <ion-col size="10">
+      <ion-row>
+          <ion-label class="header">Send us a message</ion-label>
+      </ion-row>
+      <ion-row>
+          <ion-label class="body clr-desc" (click)="EmailOpen('info@gharyal.com')">info@gharyal.com</ion-label>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+      <ion-col size="2" class="col-icon">
+          <ion-icon name="call" size="large" color="primary"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <ion-row>
+            <ion-label class="header">Give us a call</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label class="body clr-desc" (click)="contactNo('+922135877559')">+92 21 35877559</ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+  <!-- <ion-item>
+    <ion-icon name="call"></ion-icon>
+    &nbsp;
+    <ion-label>
+      <b>Address :</b>
+      8C, Lane 6, Zamzama, Boulevard, Phase V, Karachi, Pakistan
+    </ion-label>
+  </ion-item>
+  <ion-item (click)="contactNo('+922135877559')">
+    <ion-icon name="call"></ion-icon>
+    &nbsp;
+    <ion-label>
+      <b>Phone :</b>
+      +92 21 35877559
+    </ion-label>
+  </ion-item>
+  <ion-item (click)="EmailOpen('info@gharyal.com')">
+    <ion-icon name="call"></ion-icon>
+    &nbsp;
+    <ion-label>
+      <b>Email :</b>
+      info@gharyal.com
+    </ion-label>
+  </ion-item> -->
+
+</ion-content>

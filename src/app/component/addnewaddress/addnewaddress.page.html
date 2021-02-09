@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Add New Address
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="address_form">
+    <ion-card class="card-2">
+      <ion-item lines="full">
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input formControlName="firstname" value="{{current_customer.firstname}}" type="text"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.firstname.hasError('required') && address_form.controls.firstname.touched">
+        <p>Please Enter Valid First Name!</p>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input formControlName="lastname" value="{{current_customer.lastname}}" type="text"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.lastname.hasError('required') && address_form.controls.lastname.touched">
+        <p>Please Enter Valid Last Name!</p>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Company</ion-label>
+        <ion-input formControlName="company" type="text"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.company.hasError('required') && address_form.controls.company.touched">
+        <p>Please Enter Valid Company Name!</p>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Phone Number</ion-label>
+        <ion-input formControlName="phone" type="number"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.phone.hasError('required') && address_form.controls.phone.touched">
+        <p>Please Enter Valid Phone Number!</p>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Street Address</ion-label>
+        <ion-textarea formControlName="street" rows="3"></ion-textarea>  
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.street.hasError('required') && address_form.controls.street.touched">
+        <p>Please Enter Valid Street Address!</p>
+      </ion-item>
+      <ion-item class="dropdown" lines="full">
+        <ion-label>Country</ion-label>
+        <ionic-selectable formControlName="country" [items]="country_list" itemValueField="id"
+          itemTextField="full_name_locale" [canSearch]="true" (onChange)="countryChange($event)">
+        </ionic-selectable>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.country.hasError('required') && address_form.controls.country.touched">
+        <p>Please Select Valid Country!</p>
+      </ion-item>
+      <ion-item class="dropdown" lines="full" *ngIf="available_regions.length > 0">
+        <ion-label>State/Province</ion-label>
+        <ionic-selectable formControlName="state" [items]="available_regions" itemValueField="id" itemTextField="name"
+          [canSearch]="true">
+        </ionic-selectable>
+      </ion-item>
+      <ion-item lines="full" *ngIf="available_regions.length == 0">
+        <ion-label position="floating">State/Province</ion-label>
+        <ion-input formControlName="state" type="text"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.state.hasError('required') && address_form.controls.state.touched">
+        <p>Please Enter Valid State/Province!</p>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">City</ion-label>
+        <ion-input formControlName="city" type="text"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.city.hasError('required') && address_form.controls.city.touched">
+        <p>Please Enter Valid City!</p>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Zip/Postal Code</ion-label>
+        <ion-input formControlName="zip" type="text"></ion-input>
+      </ion-item>
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="address_form.controls.zip.hasError('required') && address_form.controls.zip.touched">
+        <p>Please Enter Valid Zip/Postal Code!</p>
+      </ion-item>
+    </ion-card>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-button class="next" expand="full" size="large" (click)="onFormSubmit()">
+    Save Address
+  </ion-button>
+</ion-footer>

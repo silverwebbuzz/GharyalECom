@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Shipping Information
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="billing-page">
+
+  <ng-container *ngIf="defaultBillingAddress">
+    <ion-item mode="md" lines="none" class="dark">
+      <ion-label>
+        Billing Address
+      </ion-label>
+      <ion-button fill="clear" (click)="ChangeBillingAddress()" class="btn-change">
+        Change
+        <ion-icon mode="ios" name="arrow-forward" class="btn-icon"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+
+    <ion-card class="card-1">
+      <ion-row class="spc"><b>{{defaultBillingAddress.firstname | titlecase}}
+          {{defaultBillingAddress.lastname | titlecase}}</b> </ion-row>
+      <ion-row class="spc">{{defaultBillingAddress.street.join(', ')}} ,{{defaultBillingAddress.city}},
+        {{defaultBillingAddress.region.region}}, {{defaultBillingAddress.postcode}}</ion-row>
+      <ion-row class="spc">{{defaultBillingAddress.country_id}}</ion-row>
+      <ion-row class="spc"><b>T: </b> {{defaultBillingAddress.telephone}}</ion-row>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="!defaultBillingAddress">
+    <ion-item mode="md" lines="none" class="dark">
+      <ion-label>
+        Billing Address
+      </ion-label>
+    </ion-item>
+    <ion-card class="card-1">
+      <ion-row class="spc"><b>No any addresses found.</b> </ion-row>
+
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="defaultShippingAddress">
+    <ion-item mode="md" lines="none" class="dark">
+      <ion-label>
+        Shipping Address
+      </ion-label>
+      <ion-button fill="clear" (click)="ChangeShippingAddress()" class="btn-change"> 
+        Change
+        <ion-icon mode="ios" name="arrow-forward" class="btn-icon"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ion-card class="card-1">
+      <ion-row class="spc"><b>{{defaultShippingAddress.firstname | titlecase}}
+          {{defaultShippingAddress.lastname | titlecase}}</b></ion-row>
+      <ion-row class="spc">{{defaultShippingAddress.street.join(', ')}} ,{{defaultShippingAddress.city}},
+        {{defaultShippingAddress.region.region}}, {{defaultShippingAddress.postcode}}</ion-row>
+      <ion-row class="spc">{{defaultBillingAddress.country_id}}</ion-row>
+      <ion-row class="spc"><b>T: </b>{{defaultShippingAddress.telephone}}</ion-row>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="!defaultShippingAddress">
+    <ion-item mode="md" lines="none" class="dark">
+      <ion-label>
+        Shipping Address
+      </ion-label>
+    </ion-item>
+    <ion-card class="card-1">
+      <ion-row class="spc"><b>No any addresses found.</b> </ion-row>
+
+    </ion-card>
+  </ng-container>
+  <ion-card class="card-2">
+    <ion-button expand="full" (click)="addNewAddress()">
+      <ion-icon name="add" ></ion-icon>
+      <ion-label>Add New Address</ion-label>
+    </ion-button>
+  </ion-card>
+  <!-- <ion-card class="card-2">
+    <ion-item lines="full">
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+    <ion-item class="dropdown" lines="full">
+      <ion-label>Country</ion-label>
+      <ion-select okText="Select" cancelText="Dismiss">
+        <ion-select-option value="brown">India</ion-select-option>
+        <ion-select-option value="blonde">US</ion-select-option>
+        <ion-select-option value="black">UK</ion-select-option>
+        <ion-select-option value="red">UAE</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Pin code</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+  </ion-card> -->
+
+  <ion-item lines="none" class="dark">
+    <ion-label>
+      Shipping Methods
+    </ion-label>
+  </ion-item>
+
+  <ion-card class="card-1">
+    <ion-radio-group>
+      <ion-item lines="none" *ngFor="let method of shippingMethod;let i = index;" class="btn-radio">
+        <ion-label>{{method.carrier_title | titlecase}} - {{method.method_title | titlecase}}</ion-label>
+        <ion-radio slot="start" value="biff" mode="md" (ionSelect)="changeShippingOption(method)" [checked]="i === 0"></ion-radio>
+        <ion-text slot="end">{{cartShippingInfo.currency.quote_currency_code}} {{method.amount | number}}</ion-text>
+      </ion-item>
+    </ion-radio-group>
+  </ion-card>
+
+  <ion-card class="card-1" *ngIf="!shippingMethod">
+      <ion-radio-group>
+        <ion-item lines="none">
+          Please select shipping address.
+        </ion-item>
+      </ion-radio-group>
+    </ion-card>
+
+</ion-content>
+
+<ion-footer>
+    <ion-button class="next" expand="full" size="large" (click)="goToCheckout()">
+        NEXT
+      </ion-button>
+</ion-footer>

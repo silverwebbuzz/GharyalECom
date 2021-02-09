@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar class="clr">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>SELL YOUR WATCH</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="sell_form">
+    <ion-item lines="full">
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input formControlName="firstname" type="text"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.firstname.hasError('required') && sell_form.controls.firstname.touched">
+      <p>Please Enter Valid First Name!</p>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input formControlName="lastname" type="text"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.lastname.hasError('required') && sell_form.controls.lastname.touched">
+      <p>Please Enter Valid Last Name!</p>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.email.hasError('required') && sell_form.controls.email.touched">
+      <p>Email Address is required!</p>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.email.hasError('pattern') && sell_form.controls.email.touched">
+      <p>Please Enter a Valid Email Address!</p>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input formControlName="phone" type="number"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.phone.hasError('required') && sell_form.controls.phone.touched">
+      <p>Please Enter Valid Phone Number!</p>
+    </ion-item>
+
+    <ion-item class="dropdown" lines="full">
+      <ion-label>Brand</ion-label>
+      <ion-select formControlName="brand" okText="Okay" cancelText="Dismiss">
+        <!-- <ion-select-option value="brown">Brown</ion-select-option> -->
+        <ion-select-option value="abc">abc</ion-select-option>
+        <ion-select-option value="xyz">xyz</ion-select-option>
+        <ion-select-option value="aaa">aaa</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.brand.hasError('required') && sell_form.controls.brand.touched">
+      <p>Please Select Brand!</p>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Referance</ion-label>
+      <ion-input formControlName="reference" type="text"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.reference.hasError('required') && sell_form.controls.reference.touched">
+      <p>Please Enter Referance!</p>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Desired Amount</ion-label>
+      <ion-input formControlName="amount" type="number"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.amount.hasError('required') && sell_form.controls.amount.touched">
+      <p>Please Enter Desired Amount!</p>
+    </ion-item>
+
+    <ion-item class="dropdown" lines="full">
+      <ion-label>Document</ion-label>
+      <ion-select formControlName="document" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="boxes/papers">Boxes/Papers</ion-select-option>
+        <ion-select-option value="box">Box Only</ion-select-option>
+        <ion-select-option value="papers">Papers Only</ion-select-option>
+        <ion-select-option value="other">Other</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.document.hasError('required') && sell_form.controls.document.touched">
+      <p>Please Select Document!</p>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Comment</ion-label>
+      <ion-textarea formControlName="comment" rows="2"></ion-textarea>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="sell_form.controls.comment.hasError('required') && sell_form.controls.comment.touched">
+      <p>Please Enter Comment!</p>
+    </ion-item>
+
+    <input type="file" name="myFile" formControlName="myfile" class="spc">
+    <ion-item no-padding lines="none" class="validator-error"
+    *ngIf="sell_form.controls.myfile.hasError('required') && sell_form.controls.myfile.touched">
+    <p>Please Select Doc!</p>
+  </ion-item>
+
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-button class="next" expand="full" size="large" (click)="onFormSubmit()">Submit</ion-button>
+</ion-footer>

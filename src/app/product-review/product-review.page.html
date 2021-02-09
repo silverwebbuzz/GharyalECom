@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-toolbar class="clr" text-center>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="close()">
+          <ion-icon name="close" mode="md"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>
+        Reviews
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="product-review-page">
+  <ion-row>
+    <ion-col size="6" class="round-col">
+      <ion-card class="round-circle">
+        <ion-text class="inner-star1"><ion-icon name="star" class="icon"></ion-icon>1</ion-text>
+        <ion-text class="inner-star2"><ion-icon name="star" class="icon"></ion-icon>2</ion-text>
+        <ion-text class="inner-star3"><ion-icon name="star" class="icon"></ion-icon>3</ion-text>
+        <ion-text class="inner-star4"><ion-icon name="star" class="icon"></ion-icon>4</ion-text>
+        <ion-text class="inner-star5"><ion-icon name="star" class="icon"></ion-icon>5</ion-text>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6" class="badge-col">
+      <ion-badge class="badge-size">
+        {{noOfRating | number:'1.1-1'}}
+        <ion-icon name="star"></ion-icon>
+      </ion-badge>
+      <ion-label class="txt-size">Based on</ion-label>
+      <ng-container *ngIf="isLoaded; else elseTemplate">
+          <ion-label class="total-review">{{countRatings}} Review(s)</ion-label>
+      </ng-container>
+      <ng-template #elseTemplate>
+          <ion-label class="total-review">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+      </ng-template>
+      
+      <ion-button fill="clear" class="btn-add" (click)="addReview()">ADD YOUR REVIEW</ion-button>
+    </ion-col>
+  </ion-row>
+  <ng-container *ngIf="isLoaded; else elseTemplate2">
+    <ion-card class="card-2" *ngFor="let review of allReviews">
+        <ion-item lines="none" class="detail">
+            <ion-badge class="badge-size" [ngStyle]="{'background': review.ratingColor}">
+                {{review.rating_summary | number:'1.1-1'}}
+                <ion-icon name="star"></ion-icon>
+            </ion-badge>
+            <ion-label class="review-label">{{review.title | titlecase}}</ion-label>
+        </ion-item>
+    
+        <ion-item lines="none" class="desc">
+        <ion-text class="description">
+            {{review.detail }}
+        </ion-text>
+        </ion-item>
+
+        <ion-item lines="none">
+        <ion-label class="reviewr">Review by {{review.nickname | titlecase}}</ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label class="review-date">(Posted on {{review.created_at | date}})</ion-label>
+        </ion-item>
+    
+      </ion-card>
+  </ng-container>
+  <ng-template #elseTemplate2>
+      <ion-card class="card-2">
+          <ion-item lines="none" class="detail">
+              <ion-badge class="badge-size">
+                  0.0
+                  <ion-icon name="star"></ion-icon>
+              </ion-badge>
+              <ion-label class="review-label"><ion-skeleton-text animated></ion-skeleton-text></ion-label>
+          </ion-item>
+      
+          <ion-item lines="none" class="desc">
+              <ion-skeleton-text animated style="width:100%;"></ion-skeleton-text>
+          </ion-item>
+  
+          <ion-item lines="none">
+          <ion-label class="reviewr"><ion-skeleton-text animated></ion-skeleton-text></ion-label>
+          </ion-item>
+  
+          <ion-item lines="none">
+            <ion-label class="review-date"><ion-skeleton-text animated></ion-skeleton-text></ion-label>
+          </ion-item>
+      
+        </ion-card>
+    
+  </ng-template>
+
+</ion-content>

@@ -1,0 +1,37 @@
+.header{
+    --background: #f1f1f1;
+    font-weight: bold;
+    //--padding-start: 10px;
+}
+ion-button{
+    margin: 0px;
+}
+ion-checkbox{
+    margin-right: 10px;
+}
+.input-container{
+    --padding-start: 8px;
+
+    .input-label{
+        padding-left: 8px;
+    }
+
+    .input-box{
+        border: 1px solid #000;
+        --padding-start: 8px;
+    }
+}
+.bottom-spc{
+    padding-bottom: 15px;
+}
+
+.validator-error{
+    --background: transparent;
+    color: #d44848;
+    margin-left: 8px;
+
+    p{
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+  }

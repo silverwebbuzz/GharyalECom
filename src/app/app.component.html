@@ -1,0 +1,71 @@
+<ion-app>
+<ion-menu>
+    <ion-header>
+      <ion-toolbar class="tool">
+        <ion-title class="menu-hdr" text-left>MENU</ion-title>
+      </ion-toolbar>
+    </ion-header>
+   
+    <ion-content class="clr">
+
+        <div class="hr"></div>
+      <div *ngFor="let p of appPages">
+        <!-- Standard Menu Item -->
+        <ion-menu-toggle *ngIf="p.url">
+          <ion-item [routerLink]="p.url" routerDirection="root" routerLinkActive="active" class="clr" lines="full" mode="md">
+            <ion-icon *ngIf="p.icon" [name]="p.icon" slot="start"></ion-icon>
+            <img *ngIf="p.img" [src]="p.img" slot="start" height="15px;" class="icon"/>
+            <ion-label class="menu-spc">
+              {{ p.title }}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <!-- Item with Children -->
+   
+        <ion-item button *ngIf="p.children?.length > 0" [class.parent-active]="p.open"  (click)="p.open = !p.open" routerLinkActive="active" detail="false" class="clr" lines="full">
+          <ion-icon slot="end" name="arrow-forward" *ngIf="!p.open" mode="ios" color="light"></ion-icon>
+          <ion-icon slot="end" name="arrow-down" *ngIf="p.open" mode="ios" color="light"></ion-icon>
+          <ion-label class="menu-spc">{{ p.title }}</ion-label>
+        </ion-item>
+   
+        <!-- Children List for clicked Item -->
+        <ion-list *ngIf="p.open" no-padding>
+          <ion-menu-toggle>
+            <ion-item *ngFor="let sub of p.children" class="sub-item" [routerLink]="sub.url" routerDirection="root"
+              routerLinkActive="active" class="clr"  lines="none" mode="md">
+              <ion-icon *ngIf="sub.icon" [name]="sub.icon" slot="start"></ion-icon>
+              <ion-label class="submenu-spc">
+                {{ sub.title }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+   
+      </div>
+
+      <ion-item-divider style="background: #7b7c7c; color: #fff;">
+          <ion-label>
+            OTHERS
+          </ion-label>
+        </ion-item-divider>
+        <ion-menu-toggle>
+        <!-- <ion-item lines="none" mode="md" class="clr" style="--padding-start: 30px;">PRIVACY POLICY</ion-item>
+        <ion-item lines="none" mode="md" class="clr" style="--padding-start: 30px;">ABOUT US</ion-item> -->
+        <ion-item lines="full" mode="md" class="clr" style="--padding-start: 30px;" routerLink="/sell" routerDirection="root" routerLinkActive="active">SELL YOUR WATCH</ion-item>
+        <ion-item lines="none" mode="md" class="clr" style="--padding-start: 30px;" routerLink="/contact" routerDirection="root" routerLinkActive="active" >CONTACT US</ion-item>
+        
+        <ion-item *ngIf="isLoggedIn" lines="none" mode="md" class="clr">
+        <ion-button fill="clear" size="large" expand="full" style="width: 100%; border: 2px solid #fff; color: #fff;" (click)="logout()">LOG OUT</ion-button>
+        </ion-item>
+      </ion-menu-toggle>
+        
+    </ion-content>
+
+    <ion-footer class="footer-logo">
+      <img src="../assets/img/logo.png" class="logo" />
+    </ion-footer>
+   
+  </ion-menu>
+   
+  <ion-router-outlet main></ion-router-outlet>
+  </ion-app>

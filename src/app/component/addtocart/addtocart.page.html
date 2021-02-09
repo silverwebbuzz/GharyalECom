@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ADD TO CART</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row>
+    <ion-col size="2" class="btn-col" (click)="removeqty()"> 
+        <ion-button fill="clear" class="btn"><ion-icon name="remove-circle-outline" size="large"></ion-icon></ion-button>
+    </ion-col>
+    <ion-col size="8" class="btn-col unit-col">
+      <ion-label>{{qty}} Unit(s)</ion-label>
+    </ion-col>
+    <ion-col size="2" class="btn-col" (click)="addqty()">
+        <ion-button fill="clear" class="btn"><ion-icon name="add-circle-outline" size="large"></ion-icon></ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row class="btn-add">
+    <ion-button color="primary" expand="full" size="large" style="width:100%;" (click)="addToCartProducts()">Add to Cart</ion-button>
+  </ion-row>
+
+</ion-content>

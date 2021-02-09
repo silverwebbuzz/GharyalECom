@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{catName}} - FAQS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <ion-item style="color: #cead65" lines="full">
+      FREQUENTLY ASKED QUESTIONS
+  </ion-item> -->
+
+  <ion-card style="box-shadow: 0px 0px 0px 0px; border-radius: 0px;">
+    <collapsible-list [type]="'accordion'">
+      <collapsible-list-item *ngFor="let faq of faqList; let i = index;">
+        <collapsible-header class="waves-effect">
+          <ion-item class="desc-head" lines="none">
+            {{faq.title}}
+            <ion-icon name="arrow-down" slot="end" mode="ios"></ion-icon>
+          </ion-item>
+        </collapsible-header>
+        <collapsible-body [expanded]="i == 0 ?true:false" class="body-spc">
+          <ion-row class="detail-spc">
+            <div class="description-value" [innerHTML]='faq.content'></div>
+          </ion-row>
+        </collapsible-body>
+      </collapsible-list-item>
+    </collapsible-list>
+  </ion-card>
+
+  <!-- <ion-item style="color: #cead65" lines="full">
+      LATEST QUESTIONS
+  </ion-item> -->
+
+</ion-content>

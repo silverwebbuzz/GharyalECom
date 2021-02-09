@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar class="clr" text-center>
+      <ion-buttons slot="start">
+          <ion-button fill="clear" (click)="back()">
+              <ion-icon name="arrow-back" mode="ios"></ion-icon>
+            </ion-button>
+      </ion-buttons>
+      <ion-title>
+        Address Book
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="address-page">
+
+  <ion-card *ngFor="let add of addresses">
+    <ion-row class="spc"><b>Name :</b> <span>&nbsp;{{add.firstname}} {{add.lastname}}</span></ion-row>
+    <ion-row class="spc"><b>Phone No :</b> <span>&nbsp;{{add.telephone}}</span></ion-row>
+    <ion-row class="spc"><b> Address : </b> <span *ngFor="let s of add.street">&nbsp;{{s}} </span></ion-row>
+    <ion-row class="spc"><b> City :</b> <span>&nbsp;{{add.city}}</span></ion-row>
+    <ion-row class="spc"><b> Region :</b> <span>&nbsp;{{add.region.region}}</span></ion-row>
+    <ion-row class="spc"><b> Country :</b> <span>&nbsp;{{add.country_id}}</span></ion-row>
+    <ion-row *ngIf="add.default_billing"><ion-badge color="primary" class="address_label" mode="md">It's a default billing address.</ion-badge></ion-row>
+    <ion-row *ngIf="add.default_shipping"><ion-badge color="primary" class="address_label" mode="md">It's a default shipping address.</ion-badge></ion-row>
+    <ion-row text-center class="btn-group">
+      <ion-col>
+        <ion-button expand="full" fill="clear" color="dark" class="btn" (click)="editAddress(add)">
+        <ion-icon name="create" mode="md"></ion-icon>
+        Edit
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" fill="clear" color="dark" class="btn" (click)="deleteAddress(add)">
+        <ion-icon name="trash" mode="ios"></ion-icon>
+        Delete
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button class="next" expand="full" size="large" (click)="addNewAddress()">
+    Add New Address
+  </ion-button>
+</ion-footer>

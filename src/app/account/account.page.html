@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      My Account
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="account-page">
+
+  <ion-card>
+    <img src="../assets/img/Avatar.png" class="profile" />
+    <ion-text class="header">{{userDetails.firstname | titlecase}} {{userDetails.lastname | titlecase}}</ion-text>
+  </ion-card>
+
+  <div class="hr"></div>
+
+    <!-- <ion-item lines="full" routerLink="/product-review" mode="md">
+      <ion-label>
+        My Product Reviews
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item> -->
+    
+    <ion-item lines="full" routerLink="/newsletter" mode="md">
+      <ion-label>
+        Newsletter Subscriptions
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item>
+    <ion-item lines="full" routerLink="/wishlist" mode="md">
+      <ion-label>
+        My Wish List
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item>
+    <ion-item lines="full" routerLink="/rewards" mode="md">
+      <ion-label>
+        My Reward Points
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item>
+    <ion-item lines="full" routerLink="/account-info" mode="md">
+      <ion-label>
+        Account Information
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item>
+    <ion-item lines="full" routerLink="/address" mode="md">
+      <ion-label>
+        Address Book
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item>
+    <ion-item lines="full" mode="md" (click)="logout()">
+      <ion-label>
+        Logout
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward" mode="ios" color="black;"></ion-icon>
+    </ion-item>
+    
+</ion-content>

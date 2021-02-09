@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar color="transparent">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/signin">
+        <ion-icon name="arrow-back" mode="ios" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light" text-center>Sign Up</ion-title>
+  </ion-toolbar>
+  <!-- <div class="hr"></div> -->
+</ion-header>
+
+<ion-content class="grad" fullscreen>
+
+  <!-- <ion-item class="head">
+      <ion-toolbar color="transparent">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+          </ion-buttons>
+          <ion-title color="light" text-center>Sign Up</ion-title>
+        </ion-toolbar>
+    </ion-item> -->
+
+  <img src="../assets/img/logo.png" class="logo-signup" />
+
+  <br>
+  <form class="list-form" [formGroup]="registration_form" autocomplete="off">
+  <ion-item class="input-email">
+    <ion-label position="floating" color="light">
+      <img src="../assets/icon/user-icon.png" class="input-email-icon" />
+      <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+      First Name
+    </ion-label>
+    <ion-input type="text" formControlName="firstname"></ion-input>
+  </ion-item>
+  <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.firstname.hasError('required') && registration_form.controls.firstname.touched">
+      <p>Please Enter First Name!</p>
+    </ion-item>
+
+  <ion-item class="input-email">
+    <ion-label position="floating" color="light">
+      <img src="../assets/icon/user-icon.png" class="input-email-icon" />
+      <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+      Last Name
+    </ion-label>
+    <ion-input type="text" formControlName="lastname"></ion-input>
+  </ion-item>
+  <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.lastname.hasError('required') && registration_form.controls.lastname.touched">
+      <p>Please Enter a Last Name!</p>
+    </ion-item>
+
+  <ion-item class="input-email">
+    <ion-label position="floating" color="light">
+      <img src="../assets/icon/email-icon.png" class="input-email-icon" />
+      <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+      Email
+    </ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+  </ion-item>
+  <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.email.hasError('required') && registration_form.controls.email.touched">
+      <p>Email Address is required!</p>
+    </ion-item>
+  <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.email.hasError('pattern') && registration_form.controls.email.touched">
+      <p>Please Enter a Valid Email Address!</p>
+    </ion-item>
+
+  <ion-item class="input-email">
+    <ion-label position="floating" color="light">
+      <img src="../assets/icon/key-icon.png" class="input-email-icon" />
+      <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+      Password
+    </ion-label>
+    <ion-input [type]="passwordType" formControlName="password"></ion-input>
+    <ion-icon name="eye" [color]="passwordShown === true ? 'primary' : 'light'" slot="end" (click)="togglePassword()"></ion-icon>
+  </ion-item>
+  <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.password.hasError('required') && registration_form.controls.password.touched">
+      <p>Please Enter a Password!</p>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.password.hasError('minlength') && registration_form.controls.password.touched">
+      <p>The password needs at least 8 characters.</p>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.password.hasError('pattern') && registration_form.controls.password.touched">
+      <p>Please Enter One Upper Case and One Lower Case, One Spacial Characters and One Number</p>
+    </ion-item>
+
+  <ion-item class="input-pass">
+    <ion-label position="floating" color="light">
+      <img src="../assets/icon/key-icon.png" class="input-email-icon" />
+      <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+      Confirm Password
+    </ion-label>
+    <ion-input type="password" formControlName="confirmpassword"></ion-input>
+  </ion-item>
+  <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="registration_form.controls.confirmpassword.hasError('required') && registration_form.controls.confirmpassword.touched">
+      <p>Please Enter a Confirm Password!</p>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+    *ngIf="registration_form.get('confirmpassword').errors && registration_form.get('confirmpassword').errors.confirmpassword">
+    <p>Passwords must match!</p>
+  </ion-item>
+
+  <ion-item lines="none" class="check">
+      <ion-checkbox mode="md" class="check-icon" formControlName="subscribefield" (ionChange)="toggleCheckbox()" checked></ion-checkbox>
+      <ion-label color="light">Subscribe Our News</ion-label>
+  </ion-item>
+
+  <ion-button shape="round" class="btn" size="large" expand="full" (click)="submitRegister()">
+    SIGN UP
+  </ion-button>
+  </form>
+  <ion-button fill="clear" color="light" class="btn-text" routerLink="/signin">Already have an account? &nbsp; <ion-text
+      color="primary"> Sign In</ion-text>
+  </ion-button>
+
+
+</ion-content>

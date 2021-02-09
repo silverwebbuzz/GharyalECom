@@ -1,0 +1,39 @@
+.spc-col{
+padding: 0px;
+}
+.spc-col1{
+padding: 0px;
+font-weight: bold;
+font-size: 13px;
+}
+.flat-label{
+    padding: 0px 0px 0px 5px;
+    color: grey;
+}
+.pic{
+    height: 100px; 
+    width: 100px;
+    object-fit: cover;
+}
+
+.amount{
+    padding: 5px; 
+    color: #CEAD65;
+}
+.final-price{
+    color: #CEAD65;
+    font-weight: bold;
+}
+.txt-qty{
+    --padding-start: 0px !important;
+    --padding-end: 0px !important;
+    height: 25px !important;
+    margin:0px;
+    width: 30px;
+    padding: 0px 5px; 
+    color: black;
+}
+.clr-head{
+    --background: #f1f1f1;
+    color: #000;
+}

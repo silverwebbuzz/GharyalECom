@@ -1,0 +1,299 @@
+<ion-header>
+  <ion-toolbar class="clr">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Order Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="isLoaded; else elseTemplate">
+    <ion-card class="order_id">
+      <ion-row class="row-block">
+        <ion-label>Order #{{order.increment_id}}</ion-label>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_status">
+      <ion-row class="row-status">
+        <ion-col size="6">
+          <div class="order_date_div">
+            <ion-text>Placed On</ion-text>
+          </div>
+          <div class="order_date">
+            <ion-text>{{order.created_at | date}}</ion-text>
+          </div>
+
+        </ion-col>
+        <ion-col size="6" class="order_badge">
+          <ion-badge color="primary" mode="md">{{order.status | uppercase}}</ion-badge>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_items">
+      <ion-row class="order_items_count" class="row-block">
+        {{order.total_item_count}} ITEM(S) ORDERED
+      </ion-row>
+      <ion-row *ngFor="let item of order.items" class="order_item">
+        <ion-col size="4" class="product_img">
+          <img [defaultImage]="'../../assets/img/no-image-icon-4.png'"  [lazyLoad]="getimage(item.sku)">
+        </ion-col>
+        <ion-col size="8">
+          <div class="product_name" (click)="gotoProductDetails(item.product_id,item.name)">
+            <ion-label>{{item.name}}</ion-label>
+          </div>
+          <ion-row class="product_qty">
+            <ion-col size="5" class="product_left_col">
+              Qty :
+            </ion-col>
+            <ion-col size="7" class="product_right_col">
+              Ordered : {{item.qty_ordered}}
+              Shipped : {{item.qty_shipped}}
+              Canceled : {{item.qty_canceled}}
+              Refunded : {{item.qty_refunded}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="5" class="product_left_col">
+              Price :
+            </ion-col>
+            <ion-col size="7" class="product_right_col">
+              {{order.order_currency_code}} {{item.price}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="5" class="product_left_col">
+              Subtotal :
+            </ion-col>
+            <ion-col size="7" class="product_right_col">
+              {{order.order_currency_code}} {{item.row_total}}
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_price">
+      <ion-row class="card_title row-block">
+        <ion-label>PRICE DETAILS</ion-label>
+      </ion-row>
+      <ion-row class="order_price_row">
+        <ion-col size="8" class="order_price_left">
+          Subtotal
+        </ion-col>
+        <ion-col size="4" class="order_price_right">
+          {{order.order_currency_code}} {{order.subtotal}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="order_shipping_row">
+        <ion-col size="8" class="order_shipping_left">
+          Shipping & Handling
+        </ion-col>
+        <ion-col size="4" class="order_shipping_right">
+          {{order.order_currency_code}} {{order.shipping_amount}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="order_discount_row">
+        <ion-col size="8" class="order_discount_left">
+          Discount
+        </ion-col>
+        <ion-col size="4" class="order_discount_right">
+          {{order.order_currency_code}} {{order.discount_amount}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="order_tax_row">
+        <ion-col size="8" class="order_tax_left">
+          Tax
+        </ion-col>
+        <ion-col size="4" class="order_tax_right">
+          {{order.order_currency_code}} {{order.tax_amount}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="order_grand_total_row">
+        <ion-col size="8" class="order_grand_total_left">
+          Grand Total
+        </ion-col>
+        <ion-col size="4" class="order_grand_total_right">
+          {{order.order_currency_code}} {{order.grand_total}}
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_shipping_payment">
+      <ion-row class="card_title row-block">
+        <ion-label>SHIPPING AND PAYMENT INFO</ion-label>
+      </ion-row>
+      <ion-row class="card_sub_title row-block">
+        <ion-label>SHIPPING ADDRESS</ion-label>
+      </ion-row>
+      <ion-row class="order_shipping_address">
+        <h6>{{order.extension_attributes.shipping_assignments[0].shipping.address.firstname | titlecase}}
+          {{order.extension_attributes.shipping_assignments[0].shipping.address.lastname | titlecase}}</h6>
+        <p>{{order.extension_attributes.shipping_assignments[0].shipping.address.street.join(', ')}}</p>
+        <p>{{order.extension_attributes.shipping_assignments[0].shipping.address.city}},</p>
+        <p>{{order.extension_attributes.shipping_assignments[0].shipping.address.region}} -
+          {{order.extension_attributes.shipping_assignments[0].shipping.address.postcode}}</p>
+        <p>{{order.extension_attributes.shipping_assignments[0].shipping.address.country_id}}</p>
+      </ion-row>
+
+      <ion-row class="card_sub_title row-block">
+        <ion-label>BILLING ADDRESS</ion-label>
+      </ion-row>
+      <ion-row class="order_billing_payment">
+        <h6>{{order.billing_address.firstname | titlecase}} {{order.billing_address.lastname | titlecase}}</h6>
+        <p>{{order.billing_address.street.join(', ')}}</p>
+        <p>{{order.billing_address.city}},</p>
+        <p>{{order.billing_address.region}} - {{order.billing_address.postcode}}</p>
+        <p>{{order.billing_address.country_id}}</p>
+      </ion-row>
+
+      <ion-row class="card_sub_title row-block">
+        <ion-label>SHIPPING METHOD</ion-label>
+      </ion-row>
+      <ion-row class="order_shipping_method">
+        {{order.shipping_description}}
+      </ion-row>
+      <ion-row class="card_sub_title row-block">
+        <ion-label>PAYMENT METHOD</ion-label>
+      </ion-row>
+      <ion-row class="order_payment_method">
+        {{order.payment.additional_information.join(',')}}
+      </ion-row>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #elseTemplate>
+    <ion-card class="order_id">
+      <ion-row>
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_status">
+      <ion-row>
+        <ion-col size="6">
+          <div class="order_date_div">
+            <ion-text>Placed On</ion-text>
+          </div>
+          <div class="order_date">
+              <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </div>
+
+        </ion-col>
+        <ion-col size="6" class="order_badge">
+            <ion-skeleton-text animated style="width: 100%;height: 100%;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_items">
+      <ion-row class="order_items_count">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row class="order_item">
+        <ion-col size="4" class="product_img">
+            <ion-skeleton-text animated style="width: 100%;height: 150px;"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="8">
+          <div class="product_name">
+              <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </div>
+          <ion-row class="product_qty">
+              <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-row>
+          <ion-row>
+              <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-row>
+          <ion-row>
+              <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="order_item">
+          <ion-col size="4" class="product_img">
+              <ion-skeleton-text animated style="width: 100%;height: 150px;"></ion-skeleton-text>
+          </ion-col>
+          <ion-col size="8">
+            <div class="product_name">
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+            </div>
+            <ion-row class="product_qty">
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+            </ion-row>
+            <ion-row>
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+            </ion-row>
+            <ion-row>
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+    </ion-card>
+
+    <ion-card class="order_price">
+      <ion-row class="card_title">
+        <ion-label>PRICE DETAILS</ion-label>
+      </ion-row>
+      <ion-row class="order_price_row">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row class="order_shipping_row">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row class="order_discount_row">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row class="order_tax_row">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row class="order_grand_total_row">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="order_shipping_payment">
+      <ion-row class="card_title">
+        <ion-label>SHIPPING AND PAYMENT INFO</ion-label>
+      </ion-row>
+      <ion-row class="card_sub_title">
+        <ion-label>SHIPPING ADDRESS</ion-label>
+      </ion-row>
+      <ion-row class="order_shipping_address">
+          <h6><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></h6>
+          <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+      </ion-row>
+
+      <ion-row class="card_sub_title">
+        <ion-label>BILLING ADDRESS</ion-label>
+      </ion-row>
+      <ion-row class="order_billing_payment">
+        <h6><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></h6>
+        <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text></p>
+      </ion-row>
+
+      <ion-row class="card_sub_title">
+        <ion-label>SHIPPING METHOD</ion-label>
+      </ion-row>
+      <ion-row class="order_shipping_method">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row class="card_sub_title">
+        <ion-label>PAYMENT METHOD</ion-label>
+      </ion-row>
+      <ion-row class="order_payment_method">
+          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+      </ion-row>
+    </ion-card>
+  </ng-template>
+</ion-content>

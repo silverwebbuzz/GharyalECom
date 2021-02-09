@@ -1,0 +1,18 @@
+.title-ios {
+    text-align:center;
+}
+
+.btn-col{
+    padding: 0px;
+    text-align: center;
+    margin: auto;
+    .btn{
+        --padding-start: 0px;
+        --padding-end: 0px;
+    }
+}
+
+.btn-add{
+    padding-left: 10px;
+    padding-right: 10px;
+}

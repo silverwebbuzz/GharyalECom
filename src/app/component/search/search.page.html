@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar class="clr">
+    <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title>Search Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-search">
+  <ion-searchbar placeholder="Search Here" mode="ios" animated (ionChange)="searchProduct($event)"></ion-searchbar>
+  <div *ngIf="searching" class="spinner-container">
+      <ion-spinner mode="ios" name="crescent"></ion-spinner>
+  </div>
+  <div *ngIf="notFound" class="spinner-container">
+      <ion-label>No Product Found.</ion-label>
+  </div>
+  <ng-container *ngIf="productItems.length > 0">
+    <ion-card style="padding: 10px 5px; margin: 5px 5px; border-radius: 0px; background: #fff; box-shadow: 0px 0px 0px 0px;">
+      <ion-label>Search Result Found : {{productItems.length}} item(s) </ion-label>
+    </ion-card>
+    <ion-card *ngFor="let item of productItems" style="margin: 0px; border-radius: 0px; margin: 5px; --background: #fff; box-shadow: 0px 0px 0px 0px;">
+        <ion-row>
+          <ion-col size="3">
+            <img *ngIf="item.media_gallery_entries.length > 0" src="{{ productBaseURL + item.media_gallery_entries[0].file}}" style="height: 75px; width: 75px;"/>
+            <img *ngIf="item.media_gallery_entries.length == 0" src="../../../assets/img/no-image-icon-4.png" style="height: 75px; width: 75px;"/>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="font-weight: bolder; color: black; font-size: 14px;margin-bottom: 5px">
+              {{item.name}}
+            </ion-row>
+            <ion-row style="color: black; font-size: 12px; padding-bottom: 5px; padding-top: 5px;">
+                <span>SKU : </span> {{item.sku}}
+            </ion-row>
+            <ion-row>
+              <ion-button expand="full" size="small" style="text-transform: none; width: 100%; margin-left: 50px; margin-right: 50px; color: #FFF;" (click)="gotoProduct(item.id,item.name)">
+                VIEW PRODUCT
+              </ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+  </ng-container>
+</ion-content>

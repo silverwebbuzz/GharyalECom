@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="transparent">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="light" text-center>Sign In</ion-title>
+  </ion-toolbar>
+  <!-- <div class="hr"></div> -->
+</ion-header>
+
+<ion-content class="grad" fullscreen>
+
+
+
+  <!-- <ion-item class="head">
+      <ion-toolbar color="transparent">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+          </ion-buttons>
+          <ion-title color="light" text-center>Sign In</ion-title>
+        </ion-toolbar>
+    </ion-item> -->
+
+  <img src="../assets/img/logo.png" class="logo-signin" />
+
+  <br>
+  <form class="list-form" [formGroup]="login_form" autocomplete="off">
+    <ion-item class="input-email">
+      <ion-label position="floating" color="light">
+        <img src="../assets/icon/email-icon.png" class="input-email-icon" />
+        <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+        Email
+      </ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="login_form.controls.email.hasError('required') && login_form.controls.email.touched">
+      <p>Email Address is required!</p>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="login_form.controls.email.hasError('pattern') && login_form.controls.email.touched">
+      <p>Please Enter a Valid Email Address!</p>
+    </ion-item>
+
+    <ion-item class="input-pass">
+      <ion-label position="floating" color="light">
+        <img src="../assets/icon/key-icon.png" class="input-email-icon" />
+        <!-- <ion-icon name="mail" mode="ios" color="primary" "></ion-icon> -->
+        Password
+      </ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="login_form.controls.password.hasError('required') && login_form.controls.password.touched">
+      <p>Password is required!</p>
+    </ion-item>
+
+    <ion-button shape="round" class="btn" size="large" expand="full" (click)="doLogin()">
+      SIGN IN
+    </ion-button>
+  </form>
+
+    <div class="text-forgot-main">
+      <ion-button fill="clear" routerLink="/forgotpass" class="right">Forgot Password ?
+      </ion-button>
+    </div>
+
+    <div class="home_main_or">
+      <div class="home_or"><span>OR</span></div>
+    </div>
+
+    <ion-button class="btn-fb" expand="block">
+      Sign in with facebook
+    </ion-button>
+
+    <ion-button expand="block" class="btn-google">
+      Sign in with Google
+    </ion-button>
+
+    <ion-button fill="clear" color="light" class="btn-text" routerLink="/signup">Don't have an
+      account? &nbsp;
+      <ion-text color="primary"> Sign Up</ion-text>
+    </ion-button>
+  
+
+</ion-content>

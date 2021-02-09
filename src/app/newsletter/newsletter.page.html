@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+        Newsletter Subscriptions
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines="none" class="header">
+    Subscription Option
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-checkbox mode="md" (ionChange)="toggleCheckbox()" [checked]="isSubscribe"></ion-checkbox>
+    <ion-label>
+      General Subscription
+    </ion-label>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" size="large" (click)="updateUserInformation()">
+    SAVE
+  </ion-button>
+</ion-footer>

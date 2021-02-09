@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-title>
+        Order Received
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="summary-page">
+
+  <ion-card class="main-card">
+    <ion-label class="main-label">THANK YOU FOR YOUR PURCHASE !</ion-label>
+    <ion-label class="order-label">Your order number is : <b>{{OrderId | number}}</b></ion-label>
+    <ion-label class="track-label">We'll you email you an order confirmation with details and tracking info.</ion-label>
+    <!-- <ion-button expand="full" class="btn">Print Receipt</ion-button> -->
+    <ion-button expand="full" class="btn" routerLink="/tabs/home">Continue Shopping</ion-button>
+  </ion-card>
+
+</ion-content>

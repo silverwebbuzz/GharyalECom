@@ -1,0 +1,27 @@
+.address-page{
+    --background: #f1f1f1;
+
+    ion-card{
+        color: black; 
+        margin: 5px; 
+        box-shadow: 0px 0px 0px 0px; 
+        padding: 8px;
+        background: #fff;
+        border-radius: 0px;
+        
+        .address_label{
+            width: 100%;
+            margin-bottom: 0px; 
+            padding: 5px;
+            margin: 2px;
+        }
+    }
+
+    .btn-group{
+        margin-top: 10px;
+
+        .btn{
+            box-shadow: 0px 0px 2px 0px
+        }
+    }
+}

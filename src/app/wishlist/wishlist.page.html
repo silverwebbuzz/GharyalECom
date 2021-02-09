@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar class="clr" text-center>
+      <ion-buttons slot="start">
+          <ion-button fill="clear" (click)="back()">
+              <ion-icon name="arrow-back" mode="ios"></ion-icon>
+            </ion-button>
+      </ion-buttons>
+      <ion-title>
+        My Wish List
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content no-padding class="wishlist-page">
+
+    <ion-card class="empty-card" *ngIf="isEmpty">
+        <img src="../../assets/icon/empty-heart.png" style="height: 150px; width: 150px; margin: auto;" />
+        <ion-label style="display: block; font-weight: bold; text-align: center; margin-top: 15px;">NO ITEMS</ion-label>
+        <ion-label style="display: block; text-align: center; margin-top: 8px; color: grey;">You didn't added anything to wishlist yet
+        </ion-label>
+        <ion-button expand="full"
+          style="color: #fff; width: fit-content; margin: auto; margin-top: 15px; margin-bottom: 15px;"
+          (click)="goToHomePage()">CONTINUE SHOPPING</ion-button>
+      </ion-card>
+
+  <div class="clr-back" *ngIf="!isEmpty">
+  <ng-container *ngIf="isLoaded; else elseTemplate">
+    <ion-card class="card-2" *ngFor="let item of wishlist_items">
+      <ion-row>
+        <ion-col size="4">
+          <img [src]="productImgURL + item.product.base_img" class="wishlist-pic"/>
+        </ion-col>
+        <ion-col size="7">
+          <ion-row class="spc no-spc">
+            <ion-item text-wrap lines="none" style="--padding-start: 0px;">
+              <ion-label>{{item.product.name | titlecase}}</ion-label>
+            </ion-item>
+          </ion-row>
+          <ion-row class="spc no-spc" *ngIf="!item.product.special_price">
+            <ion-text>
+              {{currencySymbol}} {{item.product.price | number}}
+            </ion-text>
+          </ion-row>
+          <ion-row class="spc no-spc" *ngIf="item.product.special_price != null">
+            <ion-text>
+              {{currencySymbol}} {{item.product.special_price | number}}
+            </ion-text>
+          </ion-row>
+          <ion-row class="spc clr-spc">
+            <ion-text>
+              <del *ngIf="item.product.special_price != null" class="first-price">{{currencySymbol}} {{item.product.special_price | number}}</del>
+            </ion-text>
+          </ion-row>
+          <ion-row class="spc ex-spc" (click)=gotoProduct(item)>
+            <ion-button size="small" extend="full" shape="round" class="btn-view">
+              QUICK VIEW
+            </ion-button>
+          </ion-row>
+        </ion-col>
+        <ion-col size="1">
+          <ion-button fill="clear" class="btn-cancel" (click)="revmovefromWishlist(item)">
+            <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <!-- <div *ngIf="isEmpty" class="no-data-found">
+        No Products Found.
+      </div> -->
+      
+  </ng-container>
+
+
+  <ng-template #elseTemplate>
+
+      <ion-card class="card-2" *ngFor="let item of arrayOne(5)">
+          <ion-row>
+            <ion-col size="4">
+                <ion-skeleton-text animated style="width: 100%;height:110px;" class="title"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="8">
+              <ion-row class="spc">
+                <ion-text style="width: 100%;">
+                    <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+                </ion-text>
+              </ion-row>
+              <ion-row class="spc">
+                <ion-text style="width: 100%;">
+                    <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+                </ion-text>
+              </ion-row>
+              <ion-row class="spc">
+                <ion-text style="width: 100%;">
+                    <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+                </ion-text>
+              </ion-row>
+              <ion-row class="spc">
+                  <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+  </ng-template>
+  </div>
+
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-title>
+      {{title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+    <ion-radio-group>
+      <ion-item lines="none" class="list-block" *ngFor="let add of address;">
+          <ng-container *ngIf="type == 'billing'">
+              <ion-radio mode="md" [checked]="add.id == defaultAddressid.id" (ionSelect)="changeShippingAddress(add)"></ion-radio>
+          </ng-container>
+          <ng-container *ngIf="type == 'shipping'">
+                <ion-radio mode="md" [checked]="add.id == defaultAddressid.id" (ionSelect)="changeShippingAddress(add)"></ion-radio>
+            </ng-container>
+        <ion-card class="card-item">
+            <ion-row class="spc"><b>{{add.firstname | titlecase}} {{add.lastname | titlecase}}</b> </ion-row>
+            <ion-row class="spc">{{add.street.join(', ')}} ,{{add.city}}, {{add.region.region}}, {{add.postcode}}</ion-row>
+            <ion-row class="spc">{{add.country_id}}</ion-row>
+            <ion-row class="spc"><b>T: </b> {{add.telephone}}</ion-row>
+        </ion-card>
+      </ion-item>
+    </ion-radio-group>
+
+  <!-- <ion-radio-group>
+    <ion-card class="card-1" *ngFor="let add of address;">
+      <ion-row>
+        <ion-col size="12" style="padding-top: 0px;">
+          <ion-item>
+            <ng-container *ngIf="type == 'billing'">
+                <ion-radio mode="md" [checked]="add.id == defaultAddressid.id" (ionSelect)="changeShippingAddress(add)"></ion-radio>
+            </ng-container>
+            <ng-container *ngIf="type == 'shipping'">
+                  <ion-radio mode="md" [checked]="add.id == defaultAddressid.id" (ionSelect)="changeShippingAddress(add)"></ion-radio>
+              </ng-container>
+          <ion-row class="spc"><b>{{add.firstname | titlecase}} {{add.lastname | titlecase}}</b> </ion-row>
+          <ion-row class="spc">{{add.street.join(', ')}} ,{{add.city}}, {{add.region.region}}, {{add.postcode}}</ion-row>
+          <ion-row class="spc">{{add.country_id}}</ion-row>
+          <ion-row class="spc"><b>T: </b> {{add.telephone}}</ion-row>
+        </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-radio-group> -->
+</ion-content>

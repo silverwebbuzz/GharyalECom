@@ -1,0 +1,68 @@
+.wishlist-page{
+    //--background: #f1f1f1;
+
+    .wishlist-pic{
+        height: 130px; 
+        width: 110px;
+    }
+
+    .btn-view{
+        color:white; 
+        font-size: 15px; 
+        margin-inline-start: 0px;
+        position: absolute;
+        bottom: 5px;
+    }
+
+    .btn-cancel{
+        color: black; 
+        position: absolute; 
+        top: 0px;
+        right: -10px;
+    }
+
+    .btn-fav{
+        color: #cead65;  
+        position: absolute; 
+        padding: 0px;
+        bottom: 8px;
+        right: 2px;
+    }
+}
+.card-2{
+    box-shadow: 0px 0px 0px 0px; 
+    margin: 5px;
+    color: #000;
+    border-radius: 0px;
+    background: #fff;
+  }
+
+  ion-label{
+      font-weight: bold;
+      margin: 0px;
+  }
+  
+  .no-spc{
+      padding: 0px;
+  }
+
+  .clr-spc{
+    color: grey;
+    padding: 5px 0px;
+  }
+
+  .ex-spc{
+    padding: 5px 0px;
+  }
+
+  .clr-back{
+      background: #f1f1f1;
+  }
+
+  .empty-card{
+    box-shadow: 0px 0px 0px 0px; 
+    color: #000;
+    margin: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+  }

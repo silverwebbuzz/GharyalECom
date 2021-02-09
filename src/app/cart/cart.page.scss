@@ -1,0 +1,191 @@
+.cart-page{
+
+    .pic{
+        height: 150px; 
+        width: 110px;
+        object-fit: cover;
+    }
+
+    .amount{
+        padding: 5px; 
+        color: #CEAD65;
+    }
+
+    .btn-cancel{
+        color: black; 
+        margin: 0px;
+        float: right;
+    }
+    .delete-item{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .old-price{
+        color: #7c7b7b;
+    }
+
+    .btn-qty{
+        margin:0px; 
+        padding: 0px;
+
+        .btn-less{
+            --padding-start: 0px !important;
+            --padding-end: 0px !important;
+            background: #CCC;
+            height: 25px !important;
+            margin:0px; 
+            padding: 5px;
+
+            .icon{
+                color: black; 
+                margin:0px; 
+                padding: 0px;
+            }
+        }
+
+        .txt-qty{
+            --padding-start: 0px !important;
+            --padding-end: 0px !important;
+            background: #CCC;
+            height: 25px !important;
+            margin:0px;
+            width: auto;
+            padding: 4px 11px; 
+            color: black; 
+            background: #7c7b7b;
+        }
+    }
+    
+}
+
+    .btn{
+        text-transform: none; 
+        color:white; 
+        font-size: 14px;
+        float: right;
+    }
+
+    .cat-spc{
+        padding: 5px;
+        color: grey;
+    }
+
+    .card-1{
+        color: black; 
+        margin: 0px; 
+        box-shadow: 0px 0px 0px 0px; 
+        padding: 0px;
+        border-radius: 0px;
+      }
+
+      .card-2{
+        box-shadow: 0px 0px 0px 0px; 
+        margin: 0px;
+        color: #000;
+        background: #fff;
+        margin-bottom: 5px;
+        //border-bottom: 5px solid #f1f1f1;
+        border-radius: 0px;
+      }
+
+      .empty-card{
+        box-shadow: 0px 0px 0px 0px; 
+        color: #000;
+        margin: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .text-align{
+          text-align: right;
+      }
+
+      .header{
+          --padding-start: 10px;
+          font-weight: bold;
+      }
+
+      ion-item{
+          .item-inner{
+            -webkit-padding-end: 0px;
+            padding-inline-end: 0px;
+          }
+      }
+
+      .input-container{
+        margin: 10px; 
+        border: 1px solid #000; 
+        --inner-padding-end: 0px;
+
+        .btn-apply{
+            margin: 0px; 
+            height: 44px; 
+            --padding-start: 16px; 
+            --padding-end: 16px; 
+            color: #fff;
+        }
+      }
+
+      .icon-spc{
+          padding-right: 8px;
+      }
+
+    .page-cart-footer{
+        box-shadow: 4px 4px 4px 4px #ccc;
+
+        .total-col{
+            padding: 0px; 
+            //background: #f1f1f1;
+            margin: auto;
+
+            .total-text{
+                color: grey; 
+                font-size: 14px;
+                padding-left: 10px;
+            }
+            .total-amt{
+                font-weight: bold;
+                color: #CEAD65;
+                padding-left: 10px;
+            }
+        }
+        .btn-col{
+            padding: 0px;
+
+            .btn-proceed{
+                margin: 0px; 
+                color: #fff;
+            }
+        }
+    }
+
+
+    .item-sub-total{
+        font-size: 12px;
+        .final-price{
+            color: #CEAD65;
+            font-weight: bold;
+        }
+    }
+
+    .validator-error{
+        margin-left:10px;
+        margin-top: -20px;
+    }
+    .validator-success{
+        --background: transparent;
+        color: #2b8845;
+        margin-left:10px;
+        margin-top: -20px;
+        font-size:14px;
+    }   
+.clr{
+    background: #f1f1f1;
+}
+.points{
+    --background: #f1f1f1;
+    --padding-start: 10px;
+    font-size: 12px;
+    color: #cead65;
+}

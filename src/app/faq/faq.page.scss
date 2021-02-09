@@ -1,0 +1,28 @@
+ion-card{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-inline-start: 5px;
+    margin-inline-end: 5px
+}
+.page-faq{
+    --background: #f1f1f1;
+
+    .grid{
+        padding:0px;
+
+        .col{
+            padding:0 !important;
+
+                .title{
+                    font-size:12px; 
+                    color: #000;
+                }
+        }
+    }
+}
+.faq-pic{
+    padding-bottom: 0px; 
+    height: 150px; 
+    width: 100%; 
+    margin: 0 auto;
+}

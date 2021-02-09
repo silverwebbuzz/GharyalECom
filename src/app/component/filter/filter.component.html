@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar class="clr" text-center>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="goBack()">
+          <ion-icon name="arrow-back" mode="ios"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>
+        Filters
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="clearAlert()">
+          CLEAR
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content no-padding>
+
+          <collapsible-list [type]="'accordion'">
+            <collapsible-list-item>
+              <collapsible-header class="waves-effect">
+                <ion-item class="desc-head" lines="none">
+                  Category
+                  <ion-icon name="arrow-down" slot="end"></ion-icon>
+                </ion-item>
+              </collapsible-header>
+              <collapsible-body [expanded]="false" class="body-spc">
+                <ion-row class="detail-spc">
+                  <div class="description-value">
+                    Mens (10)
+                  </div>
+                  <ion-checkbox mode="md"></ion-checkbox>
+                </ion-row>
+              </collapsible-body>
+            </collapsible-list-item>
+          </collapsible-list>
+       
+
+  </ion-content>
+
+  <ion-footer>
+    <ion-button expand="full" (click)="filterApply()">
+      Apply
+    </ion-button>
+  </ion-footer>

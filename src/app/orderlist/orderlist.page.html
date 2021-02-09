@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar class="clr">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding class="page-orderlist">
+
+  <ng-container *ngIf="isLoaded; else elseTemplate">
+  <div *ngIf="!isEmpty">
+    <ion-card *ngFor="let order of orders" class="order-card">
+      <ion-row>
+        <ion-col size="4">
+          <img src="../../assets/img/no-image-icon-4.png">
+        </ion-col>
+        <ion-col size="8">
+          <div class="order_number">
+            <ion-label>#{{order.increment_id}}</ion-label>
+          </div>
+          <div class="order_status">
+            <ion-badge color="primary" mode="md" class="status-badge">{{ order.status | uppercase}}</ion-badge>
+          </div>
+          <div class="order_date">
+            <ion-text class="date-clr">{{order.created_at | date}}</ion-text>
+          </div>
+          <div class="order_price">
+            <ion-label class="price-clr">{{order.order_currency_code}} {{order.grand_total}}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="btn-col">
+          <ion-button expand="full" fill="outline" (click)="gotoDetailspage(order.entity_id)" class="btn-details">
+            <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon> 
+            DETAILS
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+  <div *ngIf="isEmpty">
+      <ion-card class="empty-card">
+          <img src="../../assets/img/bag.jpg" style="height: 150px; width: 150px; margin: auto;" />
+          <ion-label style="display: block; font-weight: bold; text-align: center; margin-top: 15px;">No Orders Found</ion-label>
+          <ion-label style="display: block; text-align: center; margin-top: 8px; color: grey;">You have no any Order found.
+          </ion-label>
+          <ion-button expand="full"
+            style="color: #fff; width: fit-content; margin: auto; margin-top: 15px; margin-bottom: 15px;"
+            routerLink="/tabs/mycategory">CONTINUE SHOPPING</ion-button>
+        </ion-card>
+  </div>
+  </ng-container>
+
+  <ng-template #elseTemplate>
+
+      <ion-card *ngFor="let item of arrayOne(6)" class="order-card">
+          <ion-row>
+            <ion-col size="4">
+                <ion-skeleton-text animated style="width: 100%;height: 100%;"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="8">
+              <div class="order_number">
+                  <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </div>
+              <div class="order_status">
+                  <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </div>
+              <div class="order_date">
+                  <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </div>
+              <div class="order_price">
+                  <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button expand="full" fill="outline">
+                  <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+  </ng-template>
+
+</ion-content>

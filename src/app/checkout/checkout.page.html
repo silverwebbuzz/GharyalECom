@@ -1,0 +1,102 @@
+<ion-header>
+    <ion-toolbar class="clr" text-center>
+      <ion-buttons slot="start">
+          <ion-button fill="clear" (click)="back()">
+              <ion-icon name="arrow-back" mode="ios"></ion-icon>
+            </ion-button>
+      </ion-buttons>
+      <ion-title>
+        Checkout
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    <ion-item lines="none" class="dark clr-head">
+        <ion-label>
+          Select Payment Methods
+        </ion-label>
+      </ion-item>
+
+      <!-- <ion-card class="card-2"> -->
+        <ion-radio-group>
+          <ion-item lines="full" *ngFor="let method of paymentMethod;">
+            <ion-label>
+              {{method.title | titlecase}}
+            </ion-label>
+            <ion-radio (ionSelect)="changePaymentMothod(method.code)" slot="end" mode="md">
+            </ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      <!-- </ion-card> -->
+
+      <ion-item lines="none" class="dark clr-head">
+          <ion-label>Order Summary</ion-label>
+        </ion-item>
+
+      <ion-card class="card-1">
+        <ion-row class="spc">
+          <ion-col size="8" class="spc-col">Cart Subtotal</ion-col>
+          <ion-col size="4" class="spc-col1">{{totals.quote_currency_code}} {{totals.subtotal}}</ion-col>
+        </ion-row>
+        <ion-row class="spc" *ngIf="totals.total_segments[0].code == 'rewards-total' && totals.total_segments[0].value">
+          <ion-col size="8" class="spc-col1">{{totals.total_segments[0].title}} :</ion-col>
+          <ion-col size="4" class="spc-col1">{{totals.total_segments[0].value | number}}</ion-col>
+        </ion-row>
+        <ion-row class="spc" *ngIf="totals.discount_amount != 0">
+          <ion-col size="8" class="spc-col">Discount</ion-col>
+          <ion-col size="4" class="spc-col1">{{totals.discount_amount}}</ion-col>
+        </ion-row>
+        <ion-row class="spc">
+          <ion-col size="8" class="spc-col">Shipping</ion-col>
+          <ion-col size="4" class="spc-col1">{{totals.quote_currency_code}} {{totals.shipping_amount}}</ion-col>
+        </ion-row>
+        <ion-row class="spc flat-label">Flat Rate - Fixed</ion-row>
+      </ion-card>
+    
+      <ion-item lines="none" class="dark">
+        <ion-label>Order Total</ion-label>
+        <ion-label style="text-align: right;">{{totals.quote_currency_code}} {{totals.grand_total}}</ion-label>
+      </ion-item>
+    
+      <ion-item lines="none" class="dark clr-head">
+        <ion-label>{{totals.items_qty}} Items in Cart</ion-label>
+      </ion-item>
+
+        <ion-card class="card-2">
+          <ion-row *ngFor="let item of totals.items">
+            <!-- <ion-col size="4"><img src="../../assets/img/manwatch.jpg" class="pic" /></ion-col> -->
+            <ion-col size="12">
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text><b>{{item.name}}</b></ion-text>
+                </ion-col>
+              </ion-row>
+              <ion-row class="amount">
+                <ion-text color="primary" class="final-price">{{totals.quote_currency_code}} {{item.row_total}}</ion-text>
+              </ion-row>
+              <ion-text class="txt-qty">Qty : {{item.qty}}</ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+        <ion-item lines="none" class="dark clr-head">
+          <ion-label>Ship To :</ion-label>
+        </ion-item>
+
+        <ion-card class="card-1">
+          <ion-row class="spc"><b>{{shippingAddress.firstname}} {{shippingAddress.lastname}}</b> </ion-row>
+          <ion-row class="spc">{{shippingAddress.street.join(', ')}} ,{{shippingAddress.city}},
+              {{shippingAddress.region.region}}, {{shippingAddress.postcode}}</ion-row>
+          <ion-row class="spc">{{shippingAddress.country_id}}</ion-row>
+          <ion-row class="spc"><span><b>T: </b></span> {{shippingAddress.telephone}}</ion-row>
+        </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" size="large" class="next" (click)="summary()">
+    PLACE ORDER
+  </ion-button>
+</ion-footer>

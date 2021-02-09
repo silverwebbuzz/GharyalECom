@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar class="clr" text-center>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back" mode="ios"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>FAQ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding class="page-faq">
+    <ng-container *ngIf="isLoaded; else elseTemplate">
+    <ion-grid class="grid">
+        <ion-row>
+          <ion-col size="6" *ngFor="let faq of faqCategories" class="col" (click)="faqDetails(faq.category_id, faq.title)">
+            <ion-card class="box-card">
+              <img *ngIf="faq.image" [src]="mediaURL + faq.image" class="faq-pic"/>
+              <img *ngIf="!faq.image" src="../../assets/img/faq.png" class="faq-pic"/>
+              <!-- <div class="hr"></div> -->
+              <div class="spc">
+                <ion-text class="title">{{faq.title | titlecase}}
+                </ion-text>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <ion-grid class="grid">
+            <ion-row>
+              <ion-col size="6" *ngFor="let item of arrayOne(12)" class="col">
+                <ion-card class="box-card">
+                    <ion-skeleton-text animated style="width: 100%;height:130px;"></ion-skeleton-text>
+                  <!-- <div class="hr"></div> -->
+                  <div class="spc">
+                      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+                  </div>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    </ng-template>
+
+      <!-- <ion-item style="color: #cead65" lines="full">
+        FREQUENTLY ASKED QUESTIONS
+    </ion-item>
+  
+    <ion-card style="box-shadow: 0px 0px 0px 0px">
+  
+      <ion-item lines="full" style="--padding-start: 0px;" (click)="hide()">
+          <ion-icon name="add"></ion-icon>
+          Can I cancel/edit my order ?
+      </ion-item>
+            <ion-card-content *ngIf="hideMe">
+                At Gharyal.com, your satisfaction is our utmost priority; hence you can become our ‘Loyal customer’ by doing the following:
+  
+                On your first purchase, you can get 10 points worth 0000 PKR and redeem it on your next purchase and so on.
+                Please note you can become our loyal customer on purchase above 0000 PKR.
+  
+                <ion-item lines="none">
+                <ion-button slot="end" fill="clear" color="dark" style="text-transform: none;">
+                    READ MORE >
+                  </ion-button>
+                </ion-item>
+  
+            </ion-card-content>
+    </ion-card> -->
+  
+    <!-- <ion-item style="color: #cead65" lines="full">
+        LATEST QUESTIONS
+    </ion-item> -->
+
+    <!-- <ion-card style="box-shadow: 0px 0px 0px 0px">
+  
+      <ion-item lines="full" style="--padding-start: 0px;" (click)="hide()">
+          <ion-icon name="add"></ion-icon>
+          Can I cancel/edit my order ?
+      </ion-item>
+            <ion-card-content *ngIf="hideMe">
+                At Gharyal.com, your satisfaction is our utmost priority; hence you can become our ‘Loyal customer’ by doing the following:
+  
+                On your first purchase, you can get 10 points worth 0000 PKR and redeem it on your next purchase and so on.
+                Please note you can become our loyal customer on purchase above 0000 PKR.
+  
+                <ion-item lines="none">
+                <ion-button slot="end" fill="clear" color="dark" style="text-transform: none;">
+                    READ MORE >
+                  </ion-button>
+                </ion-item>
+  
+            </ion-card-content>
+    </ion-card> -->
+
+</ion-content>
